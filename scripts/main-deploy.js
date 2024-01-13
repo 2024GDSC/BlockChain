@@ -9,7 +9,7 @@ const hre = require("hardhat");
 dotenv.config();
 const conn = sqlCon();
 
-const SUITE_CONTRACT = "MainSuiteContract";
+const PURIFY_CONTRACT = "PurifyContract";
 
 const writeFileSync = (filePath, content) => {
   try {
@@ -25,7 +25,6 @@ const writeFileSync = (filePath, content) => {
 
 const main = async () => {
   try {
-    // Deploy the SuiteContract contract
     const [result] = await conn.execute(
       "SELECT * FROM CONTRACT_INFO WHERE network = ?",
       ["polygon_main"]
@@ -34,7 +33,7 @@ const main = async () => {
     let contract_factory_name;
 
     contract_id += 1;
-    contract_factory_name = SUITE_CONTRACT + contract_id;
+    contract_factory_name = PURIFY_CONTRACT + contract_id;
 
     writeFileSync(
       `../contracts/${contract_factory_name}.sol`,
@@ -47,13 +46,12 @@ const main = async () => {
     });
     console.log("컨트랙트 컴파일을 완료했습니다.");
 
-    const suiteContract = await hre.ethers.deployContract(
-      contract_factory_name,
-      [contract_id]
+    const purifyContract = await hre.ethers.deployContract(
+      contract_factory_name
     );
-    console.log(suiteContract);
+    console.log(purifyContract);
 
-    const txResult = await suiteContract.waitForDeployment();
+    const txResult = await purifyContract.waitForDeployment();
 
     console.log(`Success!! : ${txResult.target}`);
     const contract_ABI = require(`../artifacts/contracts/${contract_factory_name}.sol/${contract_factory_name}.json`);

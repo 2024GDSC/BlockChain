@@ -28,16 +28,16 @@ module.exports = {
       url: process.env.POLYGON_MAIN_NET_RPC_PROVIDER_URL,
       accounts: [process.env.POLOYGON_MAIN_WALLET_PRIVATE_KEY], // 지갑 pk 주소 // 지갑 pk 주소
     },
-    polygon_mumbai: {
-      url: process.env.POLYGON_TEST_NET_RPC_PROVIDER_URL,
-      accounts: [
-        process.env.POLOYGON_MUMBAI_WALLET_PRIVATE_KEY,
-        process.env.POLOYGON_MUMBAI_WALLET_PRIVATE_KEY2,
-        process.env.POLOYGON_MUMBAI_WALLET_PRIVATE_KEY3,
-        process.env.POLOYGON_MUMBAI_WALLET_PRIVATE_KEY4,
-        process.env.POLOYGON_MUMBAI_WALLET_PRIVATE_KEY5,
-      ],
-    },
+    // polygon_mumbai: {
+    //   url: process.env.POLYGON_TEST_NET_RPC_PROVIDER_URL,
+    //   accounts: [
+    //     process.env.POLOYGON_MUMBAI_WALLET_PRIVATE_KEY,
+    //     process.env.POLOYGON_MUMBAI_WALLET_PRIVATE_KEY2,
+    //     process.env.POLOYGON_MUMBAI_WALLET_PRIVATE_KEY3,
+    //     process.env.POLOYGON_MUMBAI_WALLET_PRIVATE_KEY4,
+    //     process.env.POLOYGON_MUMBAI_WALLET_PRIVATE_KEY5,
+    //   ],
+    // },
   },
   solidity: {
     version: "0.8.18", // solidity compiler version
