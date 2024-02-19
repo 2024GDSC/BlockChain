@@ -10,10 +10,6 @@ import nunjucks from "nunjucks";
 import dotenv from "dotenv";
 import fs from "fs";
 
-import suiteRoomContractCreationConsumer from "./consumers/suiteRoomContractCreationConsumer.js";
-import userRegistrationConsumers from "./consumers/userRegistrationConsumer.js";
-import stopSuiteConsumer from "./consumers/stopStudyConsumer.js";
-
 dotenv.config();
 
 const app = express();
@@ -65,19 +61,13 @@ const routeFiles = fs
 
 for await (const routeFile of routeFiles) {
   const router = await import(`./routes/${routeFile}`);
-  app.use(
-    `/contract/${routeFile.split(".")[0].replace("index", "")}`,
-    router.default
-  );
+  app.use(`/${routeFile.split(".")[0].replace("index", "")}`, router.default);
 }
 
 const router = await import(`./routes/index.js`);
 app.use(`/`, router.default);
 
 // consumer append
-userRegistrationConsumers();
-suiteRoomContractCreationConsumer();
-stopSuiteConsumer();
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

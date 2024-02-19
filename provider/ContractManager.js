@@ -14,20 +14,20 @@ class ContractManager {
     this.wallet = new ethers.Wallet(wallet_private_key, this.provider);
   }
 
-  async getContract(_hashed_key) {
+  async getContract(contract_factory_name) {
     const [contractJoinResult] = await conn.execute(
-      "SELECT cmi.hashed_key as hashed_key, ci.contract_id as contract_id, ci.contract_address as contract_address, ci.contractABI as abi  FROM CONTRACT_INFO ci JOIN CONTRACT_META_INFO cmi ON ci.contract_id = cmi.contract_id WHERE cmi.hashed_key = ?",
-      [_hashed_key]
+      "SELECT *  FROM CONTRACT_INFO WHERE contract_factory_name = ?",
+      [contract_factory_name]
     );
-    console.log(contractJoinResult);
 
-    const selectABIResult = contractJoinResult[0].abi;
+    const selectABIResult = contractJoinResult[0].contractABI.abi;
     const contractAddress = contractJoinResult[0].contract_address;
+    console.log(contractAddress);
     this.contractAddress = contractAddress;
 
     const contract = new ethers.Contract(
       contractAddress,
-      selectABIResult.abi,
+      selectABIResult,
       this.wallet
     );
 
