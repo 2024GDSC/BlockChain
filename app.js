@@ -64,8 +64,8 @@ for await (const routeFile of routeFiles) {
   app.use(`/${routeFile.split(".")[0].replace("index", "")}`, router.default);
 }
 
-const router = await import(`./routes/index.js`);
-app.use(`/`, router.default);
+// const router = await import(`./routes/index.js`);
+// app.use(`/`, router.default);
 
 // consumer append
 
